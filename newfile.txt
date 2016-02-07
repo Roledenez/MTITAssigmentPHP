@@ -1,0 +1,1 @@
+INSERT INTO elements ( label, code) VALUES ( 'textBox', '<div class=\"form-group\"><label class=\"col-md-4 control-label\" for=\"textinput\">{$label}</label><div class=\"col-md-4\"><input id=\"textinput\" name=\"textinput\" type=\"text\" placeholder=\"{placeholder}\" class=\"form-control input-md\"><span class=\"help-block\">{help}</span></div></div>');\n
