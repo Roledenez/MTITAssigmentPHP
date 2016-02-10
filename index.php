@@ -105,20 +105,26 @@ Boostrap::openDiv($attribute);
             'action' => 'test.php'
         );
 
-        $html .= Boostrap::openForm("my First form",$attribute);
+        echo Boostrap::openForm("Add elements to form",$attribute); // open form
 
 //echo str_replace("world","Peter","Hello world!");
-            $result = $db->getAllElements();
-            while($row = $result->fetch_assoc()) {
-
-               echo str_replace('{button}','<a href="add.php?pageId='.$pageId.'&elementId='.$row["id"].'" class="btn btn-primary">Add</a>',$row["code"]).'<br />';
-//                echo str_replace('{text}','??///////////////////////',$row["code"])."<br>";
-//                echo '<a href="add.php?id='.$row["id"].'" class="btn btn-primary">Add</a>';
-            }
+//            $result = $db->getAllElements();
+//            while($row = $result->fetch_assoc()) {
+//
+//               echo str_replace('{button}','<a href="add.php?pageId='.$pageId.'&elementId='.$row["id"].'" class="btn btn-primary">Add</a>',$row["code"]).'<br />';
+////                echo str_replace('{text}','??///////////////////////',$row["code"])."<br>";
+////                echo '<a href="add.php?id='.$row["id"].'" class="btn btn-primary">Add</a>';
+//            }
 //            echo $html;
 //        echo Element::button("submit");
-        echo Element::buttonLink("submit","test.html?id=");
-        Boostrap::closeForm();
+//        echo Element::buttonLink("submit","test.html?id=");
+
+        // make the form body here
+        /////////////////////////////////////////////////
+
+
+        ////////////////////////////////////////
+        Boostrap::closeForm(); // end form
     Boostrap::closeDiv(); //column end
 
 Boostrap::closeDiv(); // row end
