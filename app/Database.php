@@ -101,9 +101,10 @@ class Database
     }
 
     function getPageById($id){
+
         $sql = "SELECT * FROM pages where id=".$id;
         $result = Database::$connection->query($sql);
-
+//        die($id);
         if ($result->num_rows > 0) {
             return $result->fetch_assoc();
         } else {
@@ -111,16 +112,37 @@ class Database
         }
     }
 
-    function insertToPage($pageId,$elementId){
+    function insertToPage($pageId,$elementId,$name,$link='#',$options){
 //        $sql = "INSERT INTO pages ( name, code) VALUES ( '$pageId', '$elementId');";
-        $element = $this->getElementById($elementId);
+//        $element = $this->getElementById($elementId);
+//        var_dump($elementId);
+        $element = $this->getElement($elementId,$name,$link,$this->convertOptionsToArray($options));
+//        var_dump($options);
         $page = $this->getPageById($pageId);
-        $code = $page["code"].$element["code"];
+        $code = $page["code"].$element;
         $sql = "UPDATE pages SET code='".$code."' WHERE id=".$pageId;
         if (Database::$connection->query($sql) === TRUE) {
             echo "New record created successfully";
         } else {
             echo "Error: " . $sql . "<br>" . Database::$connection->error;
+        }
+    }
+
+    function convertOptionsToArray($options){
+        if($options != '') {
+            return explode(',', $options);
+        }
+    }
+
+    function getElement($id,$name,$link,$options){
+        $element = '';
+        switch($id){
+            case 105 : return Element::text(array('label'=>$name,'placeholder'=>''));
+            case 106 : return Element::button($name);
+            case 107 : return Element::buttonLink($name,$link);
+            case 108 : return Element::radioButton($name,$options);
+            case 109 : return Element::checkBox($name,$options);
+            case 110 : return Element::dropdownList($name,$options);
         }
     }
 

@@ -38,21 +38,33 @@ $db = new Database();
 
 
 // insert new page to db
-if(isset($_GET['textinput'])){
+if(isset($_GET['textinput']) && isset($_GET['selectbasic']) == false){
     $db->insertPage($_GET['textinput']);
 }
 
-// insert elements to page
-if(isset($_GET['pageId']) && isset($_GET['elementId'])) {
-    $db->insertToPage($_GET['pageId'], $_GET['elementId']);
-}
 // get the last page data
+$result = $db->getLastPage();
+if($row = $result->fetch_assoc()) {
+    $pageId = $row["id"];
+    $pageName = $row["name"];
+//    $code = str_replace('{button}','<a href="delete.php?pageId='.$pageId.'&elementId='.$row["id"].'" class=" "> </a>',$row["code"]).'<br />';
+}
+
+//echo $_GET['list'];
+// insert elements to page
+if(isset($_GET['selectbasic']) && isset($_GET['selectbasic'])) {
+    $db->insertToPage($pageId, $_GET['selectbasic'], $_GET['textinput'],null,isset($_GET['list']) ? $_GET['list'] : null);
+}
+
 $result = $db->getLastPage();
 while($row = $result->fetch_assoc()) {
     $pageId = $row["id"];
     $pageName = $row["name"];
     $code = str_replace('{button}','<a href="delete.php?pageId='.$pageId.'&elementId='.$row["id"].'" class=" "> </a>',$row["code"]).'<br />';
 }
+
+
+
 
 $attribute = array(
     'class' => $isBoostrap ? 'row' : ''
@@ -117,13 +129,13 @@ Boostrap::openDiv($attribute);
 
     $attribute = array(
         'class' => $isBoostrap ? 'form-horizontal' : '',
-        'action' => 'addPage.php',
+        'action' => 'index.php',
         'id' => 'name'
     );
 
 
     echo Boostrap::openForm("Create a new form",$attribute);
-    echo str_replace('{text}','Form Name',Element::text(array('label'=>'Form Name','placeholder'=>'','help'=>''),false));
+    echo str_replace('{text}','Form Name',Element::text(array('label'=>'Form Name','placeholder'=>'','help'=>''),'textinput',false));
     echo Element::button("New");
     echo Boostrap::closeForm();
 
@@ -132,32 +144,32 @@ Boostrap::openDiv($attribute);
         // open form
         $attribute = array(
             'class' => $isBoostrap ? 'form-horizontal' : '',
-            'action' => 'test.php'
+            'action' => 'index.php'
         );
 
         echo Boostrap::openForm("Add elements to form",$attribute); // open form
 
-//echo str_replace("world","Peter","Hello world!");
-//            $result = $db->getAllElements();
-//            while($row = $result->fetch_assoc()) {
-//
-//               echo str_replace('{button}','<a href="index.php?pageId='.$pageId.'&elementId='.$row["id"].'" class=" ">Add</a>',$row["code"]).'<br />';
-////                echo str_replace('{text}','??///////////////////////',$row["code"])."<br>";
-////                echo '<a href="add.php?id='.$row["id"].'" class="btn btn-primary">Add</a>';
-//            }
-//            echo $html;
-//        echo Element::button("submit");
-//        echo Element::buttonLink("submit","test.html?id=");
-
         // make the form body here
         /////////////////////////////////////////////////
-echo Element::text(array('label'=>"Question Name",
+echo str_replace('{button}',' ',Element::text(array('label'=>"Question Name",
     'placeholder' => "Type name tag",
-    'help' => "Type name tag here"));
+    'help' => "Type name tag here")));
+            $label = array();
+            $count = '';
+            $result = $db->getAllElements();
+            while($row = $result->fetch_assoc()) {
+                $label[$row['id']] = $row['label'];
+//                array_push($label,$row["id"],$row["label"]);
 
-echo Element::dropdownList("Add Item",array(0=> "Button",1=>"Text"));
+            }
 
-echo Element::button("Create Form");
+//die(print_r($label));
+echo Element::dropdownList("select elements",$label);
+
+echo str_replace('{button}',' ',Element::text(array('label'=>"If you are selecting, RadioButton, CheckBox or Dropdown list please give options as comma seperated list",
+    'placeholder' => "Type name tag",
+    'help' => "Type name tag here"),'list'));
+echo Element::button("Add element to form");
 
 
         ////////////////////////////////////////

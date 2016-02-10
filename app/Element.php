@@ -17,7 +17,7 @@ class Element
                                     'label' => 'hello label',
                                     'placeholder'=> 'hello holder',
                                     'help' => 'your help goes here',
-                                    'require' => false),$button = true,$delete=true){
+                                    'require' => false),$name='textinput',$button = true,$delete=true){
 
         $text = '';
         $text .= '<div class="';
@@ -29,7 +29,7 @@ class Element
         $text .= '<div class="';
         $text .= Element::$isBoostrap ? 'col-md-4' : ' ';
         $text .= '">';
-        $text .= '<input id="textinput" name="textinput" type="text" placeholder="'.$data["placeholder"].'" class="';
+        $text .= '<input id="textinput" name="'.$name.'" type="text" placeholder="'.$data["placeholder"].'" class="';
         $text .= Element::$isBoostrap ? 'form-control input-md': ' ';
         $text .= '">';
 //        $text .= '<span class="help-block">'.$data["help"].'</span>';
@@ -152,9 +152,10 @@ class Element
         $drop .= Element::$isBoostrap ? 'form-control' : ' ';
         $drop .= '">';
         $count ='';
+//        die(print_r($option));
         foreach($option as $key => $value){
 
-            $drop .= '<option value="'.$count++.'">'.$value.'</option>';
+            $drop .= '<option value="'.$key.'">'.$value.'</option>';
 
         }
         $drop .= '</select>';
