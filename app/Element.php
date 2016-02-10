@@ -25,7 +25,7 @@ class Element
         $text .= '">';
         $text .= '<label class="';
         $text .= Element::$isBoostrap ? ' col-md-4 control-label"' : ' "';
-        $text .= ' '.'for="textinput">{text}</label>';
+        $text .= ' '.'for="textinput">'.$data["label"].'</label>';
         $text .= '<div class="';
         $text .= Element::$isBoostrap ? 'col-md-4' : ' ';
         $text .= '">';
@@ -62,7 +62,9 @@ class Element
         $button .= Element::$isBoostrap ? 'form-group' :  ' ';
         $button .= '">';
 //        $button .= '<label class="col-md-4 control-label" for="singlebutton">Single Button</label>';
-        $button .= '<div class="col-md-4">';
+        $button .= '<div class="';
+        $button .= Element::$isBoostrap ? 'col-md-4"' : ' ';
+        $button .= '">';
         $button .= '<a href="'.$link.'"';
         $button .= Element::$isBoostrap ? ' class="btn btn-primary' : ' ';
         $button .= '">'.$name.'</a>';
@@ -74,16 +76,24 @@ class Element
 
     //create new elements hre
     //like
-    static function radio_Button($name,$option){
+    static function radioButton($name,$option){
 
         $radio = '';
-        $radio .= '<div class="form-group">';
-        $radio .= '<label class="col-md-4 control-label" for="radios">'.$name.'</label>';
-        $radio .= '<div class="col-md-4">';
+        $radio .= '<div class="';
+        $radio .= Element::$isBoostrap ? 'form-group' : ' ';
+        $radio .= '">';
+        $radio .= '<label class="';
+        $radio .= Element::$isBoostrap ? 'col-md-4 control-label"' : ' "';
+        $radio .= ' '.'for="radios">'.$name.'</label>';
+        $radio .= '<div class="';
+        $radio .= Element::$isBoostrap ? 'col-md-4"' : ' ';
+        $radio .= '">';
 
         $count = '';
         foreach($option as $key => $value) {
-            $radio .= '<div class="radio">';
+            $radio .= '<div class="';
+            $radio .= Element::$isBoostrap ? 'radio' : ' ';
+            $radio .= '">';
             $radio .= '<label for="radios-'.$count++.'">';
             $radio .= '<input type="radio" name="radios" id="radios-'.$count++.'" value="'. (1 + $count++) .'" checked="checked">'.$value.'</label>';
             $radio .= '</div>';
@@ -95,16 +105,25 @@ class Element
     }
 
 
-    static function check_box($name,$option){
+    static function checkBox($name,$option){
 
         $check = '';
-        $check .= '<div class="form-group">';
-        $check .= '<label class="col-md-4 control-label"for="checkboxes">'.$name.'</label>';
-        $check .= '<div class="col-md-4">';
+        $check .= '<div class="';
+        $check .= Element::$isBoostrap ? 'form-group' : ' ';
+        $check .= '">';
+        $check .= '<label class="';
+        $check .= Element::$isBoostrap ? 'col-md-4
+        control-label"' : ' "';
+        $check .= ' '.'for="checkboxes">' .$name.'</label>';
+        $check .= '<div class="';
+        $check .= Element::$isBoostrap ? 'col-md-4' : ' ';
+        $check .= '">';
 
         $count = '';
         foreach($option as $key => $value){
-            $check .= '<div class="checkbox">';
+            $check .= '<div class="';
+            $check .= Element::$isBoostrap ? 'checkbox' : ' ';
+            $check .= '">';
             $check .= '<label for="checkboxes-'.$count++.'">';
             $check .= '<input type="checkbox" name="checkboxes"
             id="checkboxes-'.$count++.'" value="'. (1 + $count++) .'">'.$value.'</label>';
@@ -116,4 +135,31 @@ class Element
         return $check;
     }
 
+
+    static function dropdownList($name,$option){
+
+        $drop = '';
+        $drop .= '<div class="';
+        $drop .= Element::$isBoostrap ? 'form-group' : ' ';
+        $drop .= '">';
+        $drop .= '<label class="';
+        $drop .= Element::$isBoostrap ? 'col-md-4 control-label"' : ' "';
+        $drop .= ' '.'for="selectbasic">' .$name.'</label>';
+        $drop .= '<div class="';
+        $drop .= Element::$isBoostrap ? 'col-md-4' : ' ';
+        $drop .= '">';
+        $drop .= '<select id="selectbasic" name="selectbasic" class="';
+        $drop .= Element::$isBoostrap ? 'form-control' : ' ';
+        $drop .= '">';
+        $count ='';
+        foreach($option as $key => $value){
+
+            $drop .= '<option value="'.$count++.'">'.$value.'</option>';
+
+        }
+        $drop .= '</select>';
+        $drop .= '</div>';
+        $drop .= '</div>';
+        return $drop;
+    }
 }
