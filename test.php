@@ -1,4 +1,7 @@
 <?php
+include('app/Element.php');
+echo \app\Element::radio_Button('my radio',array(0 => 'radio 1', 1 => 'radio 2'));
+
 /**
  * Created by IntelliJ IDEA.
  * User: Lakna

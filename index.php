@@ -21,6 +21,7 @@ $buffer = '';
 $pageId = '';
 $pageName = '';
 $code = '';
+$isBoostrap = false;
 
 include("includes/header.php");
 
@@ -37,7 +38,7 @@ while($row = $result->fetch_assoc()) {
 }
 
 $attribute = array(
-    'class' => 'row'
+    'class' => $isBoostrap ? 'row' : ''
 );
 
 Boostrap::openDiv($attribute);
@@ -45,7 +46,7 @@ Boostrap::openDiv($attribute);
 
     //side bar
     $attribute = array(
-        'class' => 'col-xs-3 col-md-3',
+        'class' => $isBoostrap ? 'col-xs-3 col-md-3' : '',
         'style' => 'background: red; height: 20px;'
     );
 //    var_dump($attribute);
@@ -56,7 +57,7 @@ Boostrap::openDiv($attribute);
     Boostrap::closeDiv(); // column end
 
     $attribute = array(
-        'class' => 'col-xs-9 col-md-9',
+        'class' => $isBoostrap ? 'col-xs-9 col-md-9' : '',
         'style' => 'background: blue; height: 20px;'
     );
 
@@ -66,7 +67,7 @@ Boostrap::openDiv($attribute);
 
     /////////////////////////////////////
     $attribute = array(
-        'class' => 'form-horizontal',
+        'class' => $isBoostrap ? 'form-horizontal' : '',
         'action' => 'test.php'
     );
     $buffer .= Boostrap::openForm($pageName,$attribute);
@@ -88,7 +89,7 @@ Boostrap::openDiv($attribute);
     /////////////////////////////////
 
     $attribute = array(
-        'class' => 'form-horizontal',
+        'class' => $isBoostrap ? 'form-horizontal' : '',
         'action' => 'addPage.php',
         'id' => 'name'
     );
@@ -101,7 +102,7 @@ Boostrap::openDiv($attribute);
 
         // open form
         $attribute = array(
-            'class' => 'form-horizontal',
+            'class' => $isBoostrap ? 'form-horizontal' : '',
             'action' => 'test.php'
         );
 
@@ -161,6 +162,7 @@ echo '</div>';
 echo '</div>';
 echo '</fieldset>';
 
+        echo Element::radio_Button('radio group',array(0 => 'radio 1', 1 => 'radio 2'));
 
         ////////////////////////////////////////
         Boostrap::closeForm(); // end form
