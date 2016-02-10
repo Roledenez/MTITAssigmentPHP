@@ -121,6 +121,45 @@ Boostrap::openDiv($attribute);
 
         // make the form body here
         /////////////////////////////////////////////////
+echo '<fieldset>';
+echo '<div>';
+echo '<!-- Text input-->';
+echo '<div class="form-group">';
+echo '<label class="col-md-4 control-label" for="label">Question Name</label>';
+echo '<div class="col-md-4">';
+echo '<input id="label" name="label" type="text" placeholder="Type you label name here" class="form-control input-md">';
+echo '</div>';
+echo '</div>';
+
+echo '<!-- Text input-->';
+echo '<div class="form-group">';
+echo '<label class="col-md-4 control-label" for="helpTxt">Help text</label>';
+echo '<div class="col-md-4">';
+echo '<input id="helpTxt" name="helpTxt" type="text" placeholder="" ';
+echo 'class="form-control input-md">';
+echo '</div>';
+echo '</div>';
+
+echo '<!-- Select Basic -->';
+echo '<div class="form-group">';
+echo '<label class="col-md-4 control-label" for="addItem">Add Item</label>';
+echo '<div class="col-md-4">';
+echo '<select id="addItem" name="addItem" class="form-control">';
+echo '<option value="3">re</option>';
+echo '</select>';
+echo '</div>';
+echo '</div>';
+
+echo '<!-- Button -->';
+echo '<div class="form-group">';
+echo '<label class="col-md-4 control-label" for="createButton"></label>';
+echo '<div class="col-md-4">';
+echo '<button id="createButton" name="createButton" class="btn btn-primary">Create
+Form</button>';
+echo '</div>';
+echo '</div>';
+echo '</div>';
+echo '</fieldset>';
 
 
         ////////////////////////////////////////
