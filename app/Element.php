@@ -94,4 +94,26 @@ class Element
         return $radio;
     }
 
+
+    static function check_box($name,$option){
+
+        $check = '';
+        $check .= '<div class="form-group">';
+        $check .= '<label class="col-md-4 control-label"for="checkboxes">'.$name.'</label>';
+        $check .= '<div class="col-md-4">';
+
+        $count = '';
+        foreach($option as $key => $value){
+            $check .= '<div class="checkbox">';
+            $check .= '<label for="checkboxes-'.$count++.'">';
+            $check .= '<input type="checkbox" name="checkboxes"
+            id="checkboxes-'.$count++.'" value="'. (1 + $count++) .'">'.$value.'</label>';
+            $check .= '</div>';
+        }
+
+        $check .= '</div>';
+        $check .= '</div>';
+        return $check;
+    }
+
 }
