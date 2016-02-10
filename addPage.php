@@ -10,7 +10,7 @@ include('app/Element.php');
  */
 
 $db =new \app\Database();
-
+//die("die");
 $db->insertPage($_GET['textinput']);
 
 header("Location: " . "index.php");

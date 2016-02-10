@@ -2,6 +2,7 @@
 use app\Boostrap;
 use app\Database;
 use app\Element;
+use app\Log;
 
 include('app/Database.php');
 include('app/Element.php');
@@ -22,6 +23,12 @@ $pageId = '';
 $pageName = '';
 $code = '';
 $isBoostrap = false;
+$_GET['boostrap'] = isset($_GET['boostrap']) ? $_GET['boostrap'] : 'f';
+$isBoostrap = $_GET['boostrap'];
+
+// set up the boostrap
+
+
 
 include("includes/header.php");
 
@@ -29,12 +36,22 @@ $db = new Database();
 //$db->insert();
 //$db->insertElement("textBox",mysqli_real_escape_string(Database::$connection,Element::text()),0);
 
-$result = $db->getLastPage();
 
+// insert new page to db
+if(isset($_GET['textinput'])){
+    $db->insertPage($_GET['textinput']);
+}
+
+// insert elements to page
+if(isset($_GET['pageId']) && isset($_GET['elementId'])) {
+    $db->insertToPage($_GET['pageId'], $_GET['elementId']);
+}
+// get the last page data
+$result = $db->getLastPage();
 while($row = $result->fetch_assoc()) {
     $pageId = $row["id"];
     $pageName = $row["name"];
-    $code = str_replace('{button}','<a href="delete.php?pageId='.$pageId.'&elementId='.$row["id"].'" class="btn btn-primary">Delete</a>',$row["code"]).'<br />';
+    $code = str_replace('{button}','<a href="delete.php?pageId='.$pageId.'&elementId='.$row["id"].'" class=" "> </a>',$row["code"]).'<br />';
 }
 
 $attribute = array(
@@ -52,8 +69,11 @@ Boostrap::openDiv($attribute);
 //    var_dump($attribute);
     Boostrap::openDiv($attribute); // column open
     echo "<h1>Forms</h1>";
-
-    echo Element::buttonLink("New Form","tools.php");
+    if(isset($_GET['boostrap']) && $_GET['boostrap'] == 't') {
+        echo Element::buttonLink("remove boostrap", "index.php?boostrap=f");
+    } else if(isset($_GET['boostrap']) && $_GET['boostrap'] == 'f') {
+        echo Element::buttonLink("use boostrap", "index.php?boostrap=t");
+    }
     Boostrap::closeDiv(); // column end
 
     $attribute = array(
@@ -70,6 +90,13 @@ Boostrap::openDiv($attribute);
         'class' => $isBoostrap ? 'form-horizontal' : '',
         'action' => 'test.php'
     );
+
+//    $buffer .= 'header("Cache-Control: public")';
+//    $buffer .= 'header("Content-Description: File Transfer")';
+//    $buffer .= 'header("Content-Disposition: attachment; filename='.$pageName.'.html")';
+//    $buffer .= 'header("Content-Type: application/octet-stream; ")';
+//    $buffer .= 'header("Content-Transfer-Encoding: binary")';
+
     $buffer .= Boostrap::openForm($pageName,$attribute);
     echo Boostrap::openForm($pageName,$attribute);
 //    echo $db->getLastPage();
@@ -82,7 +109,7 @@ Boostrap::openDiv($attribute);
     /////////////////////////////////
 
     if( isset($_GET['download']) && $_GET['download'] == true){
-    \app\Log::writeFile($pageName,$buffer);
+    Log::writeFile($pageName,$buffer);
     }
 
 
@@ -93,6 +120,8 @@ Boostrap::openDiv($attribute);
         'action' => 'addPage.php',
         'id' => 'name'
     );
+
+
     echo Boostrap::openForm("Create a new form",$attribute);
     echo str_replace('{text}','Form Name',Element::text(array('label'=>'Form Name','placeholder'=>'','help'=>''),false));
     echo Element::button("New");
@@ -109,13 +138,13 @@ Boostrap::openDiv($attribute);
         echo Boostrap::openForm("Add elements to form",$attribute); // open form
 
 //echo str_replace("world","Peter","Hello world!");
-            $result = $db->getAllElements();
-            while($row = $result->fetch_assoc()) {
-
-               echo str_replace('{button}','<a href="add.php?pageId='.$pageId.'&elementId='.$row["id"].'" class="btn btn-primary">Add</a>',$row["code"]).'<br />';
-//                echo str_replace('{text}','??///////////////////////',$row["code"])."<br>";
-//                echo '<a href="add.php?id='.$row["id"].'" class="btn btn-primary">Add</a>';
-            }
+//            $result = $db->getAllElements();
+//            while($row = $result->fetch_assoc()) {
+//
+//               echo str_replace('{button}','<a href="index.php?pageId='.$pageId.'&elementId='.$row["id"].'" class=" ">Add</a>',$row["code"]).'<br />';
+////                echo str_replace('{text}','??///////////////////////',$row["code"])."<br>";
+////                echo '<a href="add.php?id='.$row["id"].'" class="btn btn-primary">Add</a>';
+//            }
 //            echo $html;
 //        echo Element::button("submit");
 //        echo Element::buttonLink("submit","test.html?id=");

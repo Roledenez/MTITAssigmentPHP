@@ -20,6 +20,8 @@ class Log
 
     static function writeFile($name,$content){
 
+
+//            echo $content;
         $myfile = fopen('storage/'.$name.'.txt', "w") or die("Unable to open file!");
         fwrite($myfile, $content);
         fclose($myfile);
