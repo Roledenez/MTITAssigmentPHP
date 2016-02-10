@@ -12,6 +12,7 @@ namespace app;
 class Element
 {
 
+    static $isBoostrap = false;
     static function text($data = array(
                                     'label' => 'hello label',
                                     'placeholder'=> 'hello holder',
@@ -19,7 +20,7 @@ class Element
                                     'require' => false),$button = true,$delete=true){
 
         $text = '';
-        $text .= '<div class="form-group">';
+        $text .= '<div class="'.Element::$isBoostrap ? 'form-group' : '">';
         $text .= '<label class="col-md-4 control-label" for="textinput">{text}</label>';
         $text .= '<div class="col-md-4">';
         $text .= '<input id="textinput" name="textinput" type="text" placeholder="'.$data["placeholder"].'" class="form-control input-md">';
@@ -59,16 +60,17 @@ class Element
 
         $radio = '';
         $radio .= '<div class="form-group">';
-        $radio .= '<label class="col-md-4 control-label" for="radios">.$name.</label>';
+        $radio .= '<label class="col-md-4 control-label" for="radios">'.$name.'</label>';
         $radio .= '<div class="col-md-4">';
-        $radio .= '<div class="radio">';
-        $radio .= '<label for="radios-0">';
-        $radio .= '<input type="radio" name="radios" id="radios-0" value="1" checked="checked">.$option.</label>';
-	    $radio .= '</div>';
-//        $radio .= '<div class="radio">';
-//        $radio .= '<label for="radios-1">';
-//        $radio .= '<input type="radio" name="radios" id="radios-1" value="2">Option two</label>';
-//	    $radio .= '</div>';
+
+        $count = '';
+        foreach($option as $key => $value) {
+            $radio .= '<div class="radio">';
+            $radio .= '<label for="radios-'.$count++.'">';
+            $radio .= '<input type="radio" name="radios" id="radios-'.$count++.'" value="'. (1 + $count++) .'" checked="checked">'.$value.'</label>';
+            $radio .= '</div>';
+        }
+
         $radio .= '</div>';
         $radio .= '</div>';
         return $radio;
