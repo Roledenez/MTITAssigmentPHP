@@ -52,4 +52,26 @@ class Element
         return $button;
     }
 
+
+    //create new elements hre
+    //like
+    static function radio_Button($name,$option){
+
+        $radio = '';
+        $radio .= '<div class="form-group">';
+        $radio .= '<label class="col-md-4 control-label" for="radios">.$name.</label>';
+        $radio .= '<div class="col-md-4">';
+        $radio .= '<div class="radio">';
+        $radio .= '<label for="radios-0">';
+        $radio .= '<input type="radio" name="radios" id="radios-0" value="1" checked="checked">.$option.</label>';
+	    $radio .= '</div>';
+//        $radio .= '<div class="radio">';
+//        $radio .= '<label for="radios-1">';
+//        $radio .= '<input type="radio" name="radios" id="radios-1" value="2">Option two</label>';
+//	    $radio .= '</div>';
+        $radio .= '</div>';
+        $radio .= '</div>';
+        return $radio;
+    }
+
 }

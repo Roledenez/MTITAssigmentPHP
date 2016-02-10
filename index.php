@@ -29,6 +29,7 @@ $db = new Database();
 //$db->insertElement("textBox",mysqli_real_escape_string(Database::$connection,Element::text()),0);
 
 $result = $db->getLastPage();
+
 while($row = $result->fetch_assoc()) {
     $pageId = $row["id"];
     $pageName = $row["name"];
