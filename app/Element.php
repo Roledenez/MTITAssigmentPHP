@@ -20,10 +20,18 @@ class Element
                                     'require' => false),$button = true,$delete=true){
 
         $text = '';
-        $text .= '<div class="'.Element::$isBoostrap ? 'form-group' : '">';
-        $text .= '<label class="col-md-4 control-label" for="textinput">{text}</label>';
-        $text .= '<div class="col-md-4">';
-        $text .= '<input id="textinput" name="textinput" type="text" placeholder="'.$data["placeholder"].'" class="form-control input-md">';
+        $text .= '<div class="';
+        $text .= Element::$isBoostrap ? ' form-group ' : ' ';
+        $text .= '">';
+        $text .= '<label class="';
+        $text .= Element::$isBoostrap ? ' col-md-4 control-label"' : ' "';
+        $text .= ' '.'for="textinput">{text}</label>';
+        $text .= '<div class="';
+        $text .= Element::$isBoostrap ? 'col-md-4' : ' ';
+        $text .= '">';
+        $text .= '<input id="textinput" name="textinput" type="text" placeholder="'.$data["placeholder"].'" class="';
+        $text .= Element::$isBoostrap ? 'form-control input-md': ' ';
+        $text .= '">';
 //        $text .= '<span class="help-block">'.$data["help"].'</span>';
         $text .= '</div>';
         $text .= $button ? '{button}' : '';//$button ? Element::buttonLink($delete ? "Delete" : "Add",$delete ? "delete.php" : "add.php") : '';
@@ -33,10 +41,16 @@ class Element
 
     static function button($name){
         $button = '';
-        $button .= '<div class="form-group">';
+        $button .= '<div class="';
+        $button .= Element::$isBoostrap ? 'form-group' : ' ';
+        $button .= '">';
 //        $button .= '<label class="col-md-4 control-label" for="singlebutton">Single Button</label>';
-        $button .= '<div class="col-md-4">';
-        $button .= '<button id="singlebutton" name="singlebutton" class="btn btn-primary">'.$name.'</button>';
+        $button .= '<div class="';
+        $button .= Element::$isBoostrap ? ' col-md-4' : ' ';
+        $button .= '">';
+        $button .= '<button id="singlebutton" name="singlebutton" class="';
+        $button .= Element::$isBoostrap ? 'btn btn-primary' : ' ';
+        $button .= '">'.$name.'</button>';
         $button .= '</div>';
         $button .= '</div>';
         return $button;
@@ -44,10 +58,14 @@ class Element
 
     static function buttonLink($name,$link){
         $button = '';
-        $button .= '<div class="form-group">';
+        $button .= '<div class="';
+        $button .= Element::$isBoostrap ? 'form-group' :  ' ';
+        $button .= '">';
 //        $button .= '<label class="col-md-4 control-label" for="singlebutton">Single Button</label>';
         $button .= '<div class="col-md-4">';
-        $button .= '<a href="'.$link.'" class="btn btn-primary">'.$name.'</a>';
+        $button .= '<a href="'.$link.'"';
+        $button .= Element::$isBoostrap ? ' class="btn btn-primary' : ' ';
+        $button .= '">'.$name.'</a>';
         $button .= '</div>';
         $button .= '</div>';
         return $button;

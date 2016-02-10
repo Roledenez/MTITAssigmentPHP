@@ -46,6 +46,15 @@ class Database
         }
     }
 
+    function deleteAllElements(){
+        $sql = "DELETE FROM elements ";
+        if (Database::$connection->query($sql) === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $sql . "<br>" . Database::$connection->error;
+        }
+    }
+
     function getAllElements(){
         $sql = "SELECT * FROM elements";
         $result = Database::$connection->query($sql);
